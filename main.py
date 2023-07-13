@@ -197,37 +197,37 @@
 
 
 ####
-class Car:
-    def __init__(self, name, price):
-        self.name = name
-        self.price = price
-
-    def show_info(self):
-        print(f"Name: {self.name}")
-        print(f"Price: {self.price}")
-
-    def __add__(self, other):
-        if isinstance(other, Car):
-            return self.price + other.price
-        elif other > 0:
-            return self.price + other
-        else:
-            raise ValueError("Incorrect param")
-
-
+# class Car:
+#     def __init__(self, name, price):
+#         self.name = name
+#         self.price = price
+#
+#     def show_info(self):
+#         print(f"Name: {self.name}")
+#         print(f"Price: {self.price}")
+#
+#     def __add__(self, other):
+#         if isinstance(other, Car):
+#             return self.price + other.price
+#         elif other > 0:
+#             return self.price + other
+#         else:
+#             raise ValueError("Incorrect param")
 #
 #
-toyota = Car("camry", 123456)
-toyota.show_info()
-
-bmw = Car("x5", 321654)
-bmw.show_info()
-
-result = toyota + bmw
-print(result)
-
-result = toyota + 123
-print(result)
+# #
+# #
+# toyota = Car("camry", 123456)
+# toyota.show_info()
+#
+# bmw = Car("x5", 321654)
+# bmw.show_info()
+#
+# result = toyota + bmw
+# print(result)
+#
+# result = toyota + 123
+# print(result)
 
 # дописать остальные операторы в классе Car
 
@@ -235,18 +235,18 @@ print(result)
 # 1
 # абстрактные методы
 
-from abc import ABC, abstractmethod
+# from abc import ABC, abstractmethod
+# #
+# #
+# # абстрактный класс - содержит в себе абстрактные методы, то есть методы без реализации помеченные
+# # декоратором @abstractmethod из модуля abc, а так же методы с реализацией (обычные методы)
+# # Так как абстрактный класс содержит в себе абстрактные методы -
+# # все дочерние классы обязаны предоставить реализации этих методов,
+# # так же нельзя создать экземпляр класса у которого есть хотя бы один абстрактный метод
 #
-#
-# абстрактный класс - содержит в себе абстрактные методы, то есть методы без реализации помеченные
-# декоратором @abstractmethod из модуля abc, а так же методы с реализацией (обычные методы)
-# Так как абстрактный класс содержит в себе абстрактные методы -
-# все дочерние классы обязаны предоставить реализации этих методов,
-# так же нельзя создать экземпляр класса у которого есть хотя бы один абстрактный метод
-
-# интерфейс - это класс, у которого только абстрактные методы,
-# такой класс необходим если вам нужно создать некий контракт, обязательство предоставить реализацию этих методов для
-# других классов наследников
+# # интерфейс - это класс, у которого только абстрактные методы,
+# # такой класс необходим если вам нужно создать некий контракт, обязательство предоставить реализацию этих методов для
+# # других классов наследников
 # class Polygon(ABC):
 #     @abstractmethod  # этот метод без реализации и все дочерние классы обязаны предоставить реализацию этого метода
 #     def noofsides(self):
@@ -358,9 +358,9 @@ from abc import ABC, abstractmethod
 # # Полиморфизм и наследование
 # from math import pi
 # from abc import ABC, abstractmethod
-#
-#
-# # интерфейс
+# #
+# #
+# # # интерфейс
 # class BaseShape(ABC):
 #     @abstractmethod
 #     def area(self):
@@ -371,8 +371,8 @@ from abc import ABC, abstractmethod
 #     def __init__(self, name):
 #         self.name = name
 #
-#     # def area(self):
-#     #     pass
+#     def area(self):
+#         pass
 #
 #     def info(self):
 #         return "Я двухмерная форма."
@@ -416,10 +416,10 @@ from abc import ABC, abstractmethod
 # #
 # kvadrat = Square(8)
 # krug = Circle(14)
-# # print(kvadrat)
-# # print(kvadrat.info())
-# # print(krug.info())
-# # print(kvadrat.area())
+# print(kvadrat)
+# print(kvadrat.info())
+# print(krug.info())
+# print(kvadrat.area())
 #
 # areaCalculator = AreaCalculator(kvadrat)
 # areaCalculator.get_area()
@@ -427,3 +427,88 @@ from abc import ABC, abstractmethod
 # areaCalculator.get_area()
 # print(Square.mro())
 # print(AreaCalculator.mro())
+
+# Mixin классы - это классы у которых нет данных, но есть методы.
+# Mixin используются для добавления одних и тех же методов в разные классы.
+#
+# В Python примеси делаются с помощью классов.
+# Так как в Python нет отдельного типа для примесей, классам-примесям принято давать имена заканчивающиеся на Mixin.
+#
+# С одной стороны, то же самое можно сделать с помощью наследования обычных классов, но не всегда те методы,
+# которые нужны в разных дочерних классах, имеют смысл в родительском.
+
+# class Radio:
+#     def play_song(self):
+#         pass
+#
+#     def set_station(self, station):
+#         pass
+#
+#
+# class RadioUserMixin(object):
+#     def __init__(self):
+#         self.radio = Radio()
+#
+#     def play_song_on_station(self, station):
+#         self.radio.set_station(station)
+#         self.radio.play_song()
+#
+#
+# class Vehicle:
+#     pass
+#
+#
+# class Car(Vehicle, RadioUserMixin):
+#     pass
+
+# Еще одна версия инкапсуляции, с использованием сторонней билиотеки
+
+# from accessify import private, protected, implements
+#
+#
+# class ICar:
+#     def show(self):
+#         pass
+#
+#     def test(self):
+#         pass
+#
+#
+# @implements(ICar)
+# class Car:
+#     @private  # доступ будет только внутри этого класса
+#     def show_secret(self):
+#         print("Secret token")
+#
+#     @protected  # доступ будет внутри этого класса и в дочерних
+#     def show_data_for_child_classes(self):
+#         print("Data for child classes")
+#
+#     # доступ будет везде
+#     def show(self):
+#         print("Info from secret method")
+#         self.show_secret()
+#         print("Info from protected method")
+#         self.show_data_for_child_classes()
+#
+#     def test(self):
+#         print("Test method")
+#
+#
+# class SuperCar(Car):
+#     def show_parent_methods(self):
+#         # print("Info from secret method")
+#         # self.show_secret()
+#         print("Info from protected method")
+#         self.show_data_for_child_classes()
+#
+#
+# super_car = SuperCar()
+# super_car.show_parent_methods()
+# # super_car.show_data_for_child_classes()
+# #
+# car1 = Car()
+# car1.show()
+# car1.test()
+# # car1.show_data_for_child_classes()
+# # car1.show_secret()
